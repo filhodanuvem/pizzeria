@@ -1,0 +1,11 @@
+{
+	"secret" : "yourSecret",
+	"cache" : {
+		"enabled" : false,
+		"address" : "localhost",
+		"port" : "6379",
+		"password" : ""	,
+		"ttl" : 100
+	}
+	
+}
