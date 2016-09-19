@@ -3,11 +3,6 @@ Pizzeria
 
 Pizzeria is a chart generator as a service
 
-
-### Requirements
-
-Golang 1.3+
-
 ### What is it?
 
 The main inspiration of Pizzeria was
@@ -15,15 +10,20 @@ The main inspiration of Pizzeria was
 We believe that sometimes developers need to have a simple way to generate
 image charts. 
 A http api could be a good tool to solve this problem.
-Thank you for [wcharczuk/go-chart](https://github.com/wcharczuk/go-chart).
 
+
+### Requirements
+
+Golang 1.2+
 
 ### How to install and run it ?
 Prefer always a stable release [found here](https://github.com/cloudson/pizzeria/releases)
 
 ```bash
-download the project to some $path
-cd $path/
+[Install Go compiler](https://golang.org/dl/)
+[Download the project](https://github.com/cloudson/pizzeria/releases) to some $path
+cd $path
+go get 
 go run main.go
 ```
 
