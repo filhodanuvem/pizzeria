@@ -19,6 +19,7 @@ Thank you for [wcharczuk/go-chart](https://github.com/wcharczuk/go-chart).
 
 
 ### How to install and run it ?
+Prefer always a stable release [found here](https://github.com/cloudson/pizzeria/releases)
 
 ```bash
 download the project to some $path
@@ -49,16 +50,5 @@ http://localhost:8080/line?h=200&w=200&dtx=1,2,3&dty=2,4,6
 ### Documentation 
 
 Read more about the possibilities on [Doc page](./doc/index.md)
-
-### Roadmap 
-
-- [x] Avoid to write in a file before send as http response
-- [x] Add default colors support 
-- [ ] Add support to stacked bar
-- [X] Add support to default ranges 
-- [ ] Add support to padding
-- [X] Add support to [axis labels](https://github.com/wcharczuk/go-chart/blob/master/_examples/custom_ticks/main.go)
-- [ ] Add cache support
-
 
 
