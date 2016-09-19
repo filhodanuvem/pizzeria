@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"regexp"
+	"log"
 )
 
 func main() {
@@ -19,12 +20,15 @@ func main() {
 	if err != nil { 
 	    panic(fmt.Errorf("Error on read config file: %s \n", err))
 	}
-
+	address := "127.0.0.1"
+	port := "8080"
 	http.HandleFunc("/pie", printPieGraph)
 	http.HandleFunc("/bar", printBarGraph)
 	http.HandleFunc("/line", printLineGraph)
 
-	http.ListenAndServe(":8080", nil)
+	log.Print("Pizzeria running on "+address+":"+port)
+	err = http.ListenAndServe(address+":"+port, nil)
+	log.Print(err.Error())
 }
 
 

@@ -46,6 +46,10 @@ http://localhost:8080/line?h=200&w=200&dtx=1,2,3&dty=2,4,6
 
 ![](./_images/line.png)
 
+### Documentation 
+
+Read more about the possibilities on [Doc page](./doc/index.md)
+
 ### Roadmap 
 
 - [x] Avoid to write in a file before send as http response
