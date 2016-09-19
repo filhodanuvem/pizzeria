@@ -20,8 +20,8 @@ Golang 1.2+
 Prefer always a stable release [found here](https://github.com/cloudson/pizzeria/releases)
 
 ```bash
-[Install Go compiler](https://golang.org/dl/)
-[Download the project](https://github.com/cloudson/pizzeria/releases) to some $path
+# Install Go compiler on https://golang.org/dl
+# Download the project on same $path
 cd $path
 go get 
 go run main.go
