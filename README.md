@@ -21,7 +21,7 @@ Prefer always a stable release [found here](https://github.com/cloudson/pizzeria
 
 ```bash
 # Install Go compiler on https://golang.org/dl
-# Download the project on same $path
+# Download the project on some $path
 cd $path
 go get 
 go run main.go
