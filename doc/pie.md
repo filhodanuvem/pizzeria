@@ -1,7 +1,7 @@
 Pie
 ========
 
-![](./_images/pie.png)
+![](../_images/pie.png)
 
 ### Data (*dt* - required)
 To set data of the chart use the *dt* parameter using a comma char as a separator.

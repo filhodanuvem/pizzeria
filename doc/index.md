@@ -20,6 +20,7 @@ When a parameter represents many data you should use a comma as separator.
 ## Endpoints
 
 Read about the chart types:
-[Pie](./pie.md)
-[Bar](./bar.md)
-[Line](./line.md)
+
+* [Pie](./pie.md)
+* [Bar](./bar.md)
+* [Line](./line.md)
