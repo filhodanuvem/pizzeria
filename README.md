@@ -14,7 +14,7 @@ A http api could be a good tool to solve this problem.
 
 ### Requirements
 
-Golang 1.2+
+Golang 1.6
 
 ### How to install and run it ?
 Prefer always a stable release [found here](https://github.com/cloudson/pizzeria/releases)
