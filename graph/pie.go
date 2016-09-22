@@ -8,13 +8,12 @@ import (
 )
 
 type PieService struct {
-
 }
 
 type Pie struct {
-	height int 
-	width int
-	Colors []string 
+	height int
+	width  int
+	Colors []string
 	values []*Value
 }
 
@@ -38,11 +37,11 @@ func NewPieGraph(h int, w int, vs []float64, ls []string) *Pie {
 			Value: vs[i],
 			Label: ls[i],
 		}
-	}	
-	
+	}
+
 	return &Pie{
 		height: h,
-		width: w,
+		width:  w,
 		values: values,
 	}
 }
@@ -52,7 +51,7 @@ func (s *PieService) Build(p *Pie, w io.Writer) {
 	valuesToChart := make([]chart.Value, len(values))
 	for i := 0; i < len(values); i++ {
 		valuesToChart[i] = chart.Value{
-			Value: values[i].Value, 
+			Value: values[i].Value,
 			Label: values[i].Label,
 		}
 

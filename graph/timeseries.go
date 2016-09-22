@@ -7,15 +7,14 @@ import (
 	"github.com/wcharczuk/go-chart"
 )
 
-const Time_YMDHIS = "2006-01-02T15:04:05"	
+const Time_YMDHIS = "2006-01-02T15:04:05"
 
 type TimeSeriesService struct {
-
 }
 
 type TimeSeries struct {
-	height int 
-	width int
+	height int
+	width  int
 	values []*Value
 }
 
@@ -39,11 +38,11 @@ func NewTimeSeriesGraph(h int, w int, vs []float64, ls []string) *TimeSeries {
 			Value: vs[i],
 			Label: ls[i],
 		}
-	}	
-	
+	}
+
 	return &TimeSeries{
 		height: h,
-		width: w,
+		width:  w,
 		values: values,
 	}
 }
@@ -54,7 +53,7 @@ func (s *TimeSeriesService) Build(p *TimeSeries, w io.Writer) {
 	times := make([]time.Time, len(values))
 	for i := 0; i < len(values); i++ {
 		valuesToChart[i] = values[i].Value
-		times[i], _ = time.Parse(Time_YMDHIS, values[i].Label)	
+		times[i], _ = time.Parse(Time_YMDHIS, values[i].Label)
 	}
 
 	graph := chart.Chart{

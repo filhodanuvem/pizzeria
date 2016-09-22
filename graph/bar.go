@@ -8,12 +8,11 @@ import (
 )
 
 type BarService struct {
-
 }
 
 type Bar struct {
-	height int 
-	width int
+	height int
+	width  int
 	values []*Value
 	Colors []string
 }
@@ -30,7 +29,6 @@ func (b *Bar) Values() []*Value {
 	return b.values
 }
 
-
 func NewBarGraph(h int, w int, vs []float64, ls []string) *Bar {
 	numberOfValues := len(vs)
 	values := make([]*Value, numberOfValues)
@@ -39,11 +37,11 @@ func NewBarGraph(h int, w int, vs []float64, ls []string) *Bar {
 			Value: vs[i],
 			Label: ls[i],
 		}
-	}	
-	
+	}
+
 	return &Bar{
 		height: h,
-		width: w,
+		width:  w,
 		values: values,
 	}
 }
@@ -53,13 +51,13 @@ func (s *BarService) Build(b *Bar, w io.Writer) {
 	valuesToChart := make([]chart.Value, len(values))
 	for i := 0; i < len(values); i++ {
 		valuesToChart[i] = chart.Value{
-			Value: values[i].Value, 
+			Value: values[i].Value,
 			Label: values[i].Label,
 		}
 
 		if len(b.Colors) > 0 {
 			valuesToChart[i].Style = chart.Style{
-				FillColor: drawing.ColorFromHex(b.Colors[i]),
+				FillColor:   drawing.ColorFromHex(b.Colors[i]),
 				StrokeColor: drawing.ColorFromHex(b.Colors[i]),
 			}
 		}

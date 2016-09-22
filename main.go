@@ -5,20 +5,20 @@ import (
 	"github.com/spf13/viper"
 
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
-	"regexp"
-	"log"
 )
 
 func main() {
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
-	if err != nil { 
-	    panic(fmt.Errorf("Error on read config file: %s \n", err))
+	if err != nil {
+		panic(fmt.Errorf("Error on read config file: %s \n", err))
 	}
 	address := "127.0.0.1"
 	port := "8080"
@@ -26,11 +26,10 @@ func main() {
 	http.HandleFunc("/bar", printBarGraph)
 	http.HandleFunc("/line", printLineGraph)
 
-	log.Print("Pizzeria running on "+address+":"+port)
+	log.Print("Pizzeria running on " + address + ":" + port)
 	err = http.ListenAndServe(address+":"+port, nil)
 	log.Print(err.Error())
 }
-
 
 func getHeightAndHeight(u *url.URL) (int, int, error) {
 	query := u.Query()
@@ -59,24 +58,24 @@ func getDataAndLabels(u *url.URL) ([]float64, []string, error) {
 			return []float64{}, []string{}, fmt.Errorf("Data is required as integer values %s given", valuesString[i])
 		}
 	}
-	
+
 	labels := getLabels(u)
 	numberOfLabels := len(labels)
 	if numberOfLabels < numberOfData {
 		return []float64{}, []string{}, fmt.Errorf("%d labels expected %d given", numberOfData, numberOfLabels)
 	}
-	
+
 	return values, labels, nil
 }
 
-func getLabels(u *url.URL) ([]string) {
+func getLabels(u *url.URL) []string {
 	query := u.Query()
 	labelsConcat := query.Get("lb")
 	if labelsConcat == "" {
 		return []string{}
 	}
 	labels := strings.Split(labelsConcat, ",")
-	
+
 	return labels
 }
 
@@ -115,17 +114,16 @@ func getColors(u *url.URL) ([]string, error) {
 		return []string{}, nil
 	}
 
-    colors := strings.Split(colorsString, ",")
-    regex, _ := regexp.Compile("(^[a-fA-F0-9]{6}$)|(^[a-fA-F0-9]{3}$)")
-    for i := 0; i < len(colors); i++ {
-    	if regex.MatchString(colors[i]) == false {
-    		return []string{}, fmt.Errorf("String %s is not a valid color, use the format, expected [A-F0-9]{6}", colors[i])
-    	}
-    }
+	colors := strings.Split(colorsString, ",")
+	regex, _ := regexp.Compile("(^[a-fA-F0-9]{6}$)|(^[a-fA-F0-9]{3}$)")
+	for i := 0; i < len(colors); i++ {
+		if regex.MatchString(colors[i]) == false {
+			return []string{}, fmt.Errorf("String %s is not a valid color, use the format, expected [A-F0-9]{6}", colors[i])
+		}
+	}
 
-    return colors, nil
+	return colors, nil
 }
-
 
 /**
 * @example http://localhost:8080/pie?h=200&w=200&dt=1,2,3&lb=cash,credit,debit
@@ -206,7 +204,7 @@ func printLineGraph(w http.ResponseWriter, r *http.Request) {
 	}
 	labels := getLabels(r.URL)
 	if len(labels) < len(valuesY) {
-		http.Error(w,  fmt.Sprintf("Expected %d labels, found %d", len(valuesY), len(labels)), 400)
+		http.Error(w, fmt.Sprintf("Expected %d labels, found %d", len(valuesY), len(labels)), 400)
 		return
 	}
 

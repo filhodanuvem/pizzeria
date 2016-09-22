@@ -1,19 +1,18 @@
 package graph
 
 import (
-	"io"
 	"fmt"
+	"io"
 
 	"github.com/wcharczuk/go-chart"
 )
 
 type LineService struct {
-
 }
 
 type Line struct {
-	height int 
-	width int
+	height int
+	width  int
 	values []*Value
 }
 
@@ -29,7 +28,7 @@ func (p *Line) Values() []*Value {
 	return p.values
 }
 
-func NewLineGraph(h int, w int, vsx []float64, vsy []float64, ls []string) *Line {	
+func NewLineGraph(h int, w int, vsx []float64, vsy []float64, ls []string) *Line {
 	if shouldIsnsert0x0(vsx, vsy) {
 		vsx = append(vsx, 0)
 		vsy = append(vsy, 0)
@@ -43,15 +42,15 @@ func NewLineGraph(h int, w int, vsx []float64, vsy []float64, ls []string) *Line
 			Value: vs[i],
 		}
 		values[i].Label = fmt.Sprintf("%.2f", vs[i])
-		if  i >= len(values)/2 && j < len(ls) {
+		if i >= len(values)/2 && j < len(ls) {
 			values[i].Label = ls[j]
-			j = j +1
+			j = j + 1
 		}
-	}	
-	
+	}
+
 	return &Line{
 		height: h,
-		width: w,
+		width:  w,
 		values: values,
 	}
 }
@@ -65,8 +64,8 @@ func (s *LineService) Build(p *Line, w io.Writer) {
 		valuesXToChart[i] = values[i].Value
 		if i >= len(values)/2 {
 			ticks[j] = chart.Tick{values[i].Value, values[i].Label}
-			j = j+1
-		} 
+			j = j + 1
+		}
 	}
 
 	graph := chart.Chart{
@@ -85,7 +84,7 @@ func (s *LineService) Build(p *Line, w io.Writer) {
 		},
 		Series: []chart.Series{
 			chart.ContinuousSeries{
-				XValues: valuesXToChart[0:len(valuesXToChart)/2],
+				XValues: valuesXToChart[0 : len(valuesXToChart)/2],
 				YValues: valuesXToChart[len(valuesXToChart)/2:],
 			},
 		},
@@ -94,7 +93,7 @@ func (s *LineService) Build(p *Line, w io.Writer) {
 	graph.Render(chart.PNG, w)
 }
 
-func shouldIsnsert0x0 (vsx []float64, vsy []float64) bool {
+func shouldIsnsert0x0(vsx []float64, vsy []float64) bool {
 	for i := 0; i < len(vsx); i++ {
 		if vsx[i] == 0 || vsy[i] == 0 {
 			return false
