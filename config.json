@@ -1,11 +1,13 @@
 {
-	"secret" : "yourSecret",
+	"checksum" : {
+		"secret" : "cloudson",
+		"enabled" : false		
+	},
 	"cache" : {
 		"enabled" : false,
 		"address" : "localhost",
 		"port" : "6379",
 		"password" : ""	,
 		"ttl" : 100
-	}
-	
+	}	
 }

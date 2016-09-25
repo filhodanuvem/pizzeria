@@ -11,6 +11,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"crypto/sha256"
+	"encoding/hex"
 )
 
 func main() {
@@ -125,10 +127,30 @@ func getColors(u *url.URL) ([]string, error) {
 	return colors, nil
 }
 
+func checksum(u *url.URL, v *viper.Viper) bool {
+	if !v.GetBool("enabled") {
+		return true
+	}
+	secret := v.GetString("secret")
+	queryString := u.String()
+	regex, _ := regexp.Compile("&?hash=[a-f0-9]+")
+	queryString = secret + string(regex.ReplaceAll([]byte(queryString), []byte("")))
+	checksum := u.Query().Get("hash")
+
+	hasher := sha256.New()
+	hasher.Write([]byte(queryString))
+
+	return checksum == hex.EncodeToString(hasher.Sum(nil))
+}
+
 /**
 * @example http://localhost:8080/pie?h=200&w=200&dt=1,2,3&lb=cash,credit,debit
  */
 func printPieGraph(w http.ResponseWriter, r *http.Request) {
+	if !checksum(r.URL, viper.Sub("checksum")) {
+		http.Error(w, "Hash is wrong", 404)
+		return
+	}
 	width, height, err := getHeightAndHeight(r.URL)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
@@ -161,6 +183,10 @@ func printPieGraph(w http.ResponseWriter, r *http.Request) {
 * @example http://localhost:8080/bar?h=200&w=200&dt=1,2,3&lb=cash,credit,debit
  */
 func printBarGraph(w http.ResponseWriter, r *http.Request) {
+	if !checksum(r.URL, viper.Sub("checksum")) {
+		http.Error(w, "Hash is wrong", 404)
+		return
+	}
 	width, height, err := getHeightAndHeight(r.URL)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
@@ -192,6 +218,10 @@ func printBarGraph(w http.ResponseWriter, r *http.Request) {
 * @example http://localhost:8080/line?h=200&w=200&dtx=1,2,3&dty=2,4,400
  */
 func printLineGraph(w http.ResponseWriter, r *http.Request) {
+	if !checksum(r.URL, viper.Sub("checksum")) {
+		http.Error(w, "Hash is wrong", 404)
+		return
+	}
 	width, height, err := getHeightAndHeight(r.URL)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
